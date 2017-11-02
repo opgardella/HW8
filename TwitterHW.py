@@ -35,7 +35,25 @@ except:
 
 
 def get_tweets():
-##YOUR CODE HERE
+    if search_term in CACHE_DICTION:
+        print("using cache")
+        return CACHE_DICTION[search_term]
+    #if it is not already in the cache, use twitter results
+    else:
+        print("fetching")
+        results = api.search(search_term)
+        #try to add it to the cache
+        try:
+            CACHE_DICTION[search_term] =  json.dumps(results)
+            dumped_json_cache = json.dumps(CACHE_DICTION)
+            fw = open(CACHE_FNAME,"w")
+            fw.write(dumped_json_cache)
+            fw.close() # Close the open file
+            return CACHE_DICTION[search_term]
+        #if there is something wrong, print that it wasn't a valid search
+        except:
+            print("Wasn't in cache and wasn't valid search either")
+            return None
 
 
 
