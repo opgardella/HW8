@@ -110,9 +110,11 @@ for t in all_res:
 # than 2 times, and fetch them into the variable more_than_2_rts.
 # Print the results
 cur.execute('SELECT author FROM Tweets WHERE retweets >2')
+#fetch all
 more_than_2_rts = cur.fetchall()
 uprint('more_than_2_rts - %s' % set(more_than_2_rts))
 
+#make sure to close it
 cur.close()
 
 
